@@ -19,4 +19,16 @@ class Order extends Model
         'shipping_method',
         'notes',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function Items() {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
 }
