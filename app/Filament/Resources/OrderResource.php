@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
+use App\Filament\Resources\OrderResource\RelationManagers\AddressRelationManager;
 use App\Models\Order;
 use App\Models\Product;
 use Filament\Forms\Components\Group;
@@ -20,12 +21,11 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 
@@ -253,12 +253,11 @@ class OrderResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                    
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
             ])
             ->actions([
                 ActionGroup::make([
@@ -270,25 +269,28 @@ class OrderResource extends Resource
             ->bulkActions([
                 BulkActionGroup::make([
                 DeleteBulkAction::make(),
-                ])
+            ])
             ]);
     }
+
     public static function getRelations(): array
-    {
+{
         return [
-            //
-        ];
-    }
+            AddressRelationManager::class,
+       
+    ];
+}
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
+public static function getNavigationBadge(): ?string
+{
+    return static::getModel()::count();
+}
 
-    public static function getNavigationBadgeColor(): string|array|null
-    {
-       return static::getModel()::count() > 10 ? 'success' : 'danger';
-    }
+public static function getNavigationBadgeColor(): string|array|null
+{
+    return static::getModel()::count() > 10 ? 'success' : 'danger';
+}
+
 
     public static function getPages(): array
     {
