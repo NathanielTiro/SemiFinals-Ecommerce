@@ -117,8 +117,8 @@ class ProductResource extends Resource
                                             ->columnSpanFull(),
                                     ])
                                     ->columnSpanFull(),
-                            ]),
-                    ]),
+                            ])->columns(2)
+                    ])->columnSpanFull(),
             ]);
     }
 
